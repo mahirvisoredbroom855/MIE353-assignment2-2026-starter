@@ -42,6 +42,16 @@ public class Main {
         // Section 3: get graduate courses and save them to gradCourses.csv
         getGradCourses();
 
+        // Section 4: run each query and save results to query1.csv ... query8.csv
+        runQuery1();
+        runQuery2();
+        runQuery3();
+        runQuery4();
+        runQuery5();
+        runQuery6();
+        runQuery7();
+        runQuery8();
+
       }
       catch (Exception e) {
         e.printStackTrace();
@@ -103,5 +113,69 @@ public class Main {
     CMS.commit();
 
     return FindGradCourses.fetch();
+  }
+
+  // Section 4 - Q1: number of students with 80+ in mie301h1f
+  public static void runQuery1() throws SQLException {
+    CMS.addSqlChange(ctx -> {
+      Query1.execute(ctx, "mie301h1f", 80);
+    });
+    CMS.commit();
+  }
+
+  // Section 4 - Q2: names of fourth-year courses
+  public static void runQuery2() throws SQLException {
+    CMS.addSqlChange(ctx -> {
+      Query2.execute(ctx);
+    });
+    CMS.commit();
+  }
+
+  // Section 4 - Q3: professors teaching exactly one course
+  public static void runQuery3() throws SQLException {
+    CMS.addSqlChange(ctx -> {
+      Query3.execute(ctx);
+    });
+    CMS.commit();
+  }
+
+  // Section 4 - Q4: professors who taught a course taken by Rebecca Ward
+  public static void runQuery4() throws SQLException {
+    CMS.addSqlChange(ctx -> {
+      Query4.execute(ctx, "Rebecca", "Ward");
+    });
+    CMS.commit();
+  }
+
+  // Section 4 - Q5: professors who never gave a failing grade
+  public static void runQuery5() throws SQLException {
+    CMS.addSqlChange(ctx -> {
+      Query5.execute(ctx);
+    });
+    CMS.commit();
+  }
+
+  // Section 4 - Q6: Data Modelling students with 90+ in another course
+  public static void runQuery6() throws SQLException {
+    CMS.addSqlChange(ctx -> {
+      Query6.execute(ctx);
+    });
+    CMS.commit();
+  }
+
+  // Section 4 - Q7: pairs of students with 3+ courses in common
+  public static void runQuery7() throws SQLException {
+    CMS.addSqlChange(ctx -> {
+      Query7.execute(ctx);
+    });
+    CMS.commit();
+  }
+
+  // Section 4 - Q8: lowest vs highest level course grade per student and department
+  public static void runQuery8() throws SQLException {
+    CMS.addSqlChange(ctx -> {
+      Query8.execute(ctx);
+    });
+    CMS.commit();
   }
 }
