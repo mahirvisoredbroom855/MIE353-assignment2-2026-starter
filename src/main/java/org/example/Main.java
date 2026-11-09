@@ -39,8 +39,9 @@ public class Main {
         
         // EXTRA MAIN FUNCTION CALLS CAN GO BELOW:
 
+        // Section 3: get graduate courses and save them to gradCourses.csv
+        getGradCourses();
 
-        
       }
       catch (Exception e) {
         e.printStackTrace();
@@ -54,7 +55,7 @@ public class Main {
     loadProfessorData();
     loadCourseData();
     loadTranscriptData();
-    loadTeachesData();
+    loadTeachesData(); // Section 2: loaded last since it depends on professor and course
   }
 
   public static void loadStudentData() throws SQLException {
@@ -85,10 +86,22 @@ public class Main {
     CMS.commit();
   }
 
-    public static void loadTeachesData() throws SQLException {
+  // Section 2: loads teaches.csv into the teaches table
+  public static void loadTeachesData() throws SQLException {
     CMS.addSqlChange(ctx -> {
       LoadTeaches.execute(ctx);
     });
     CMS.commit();
+  }
+
+  // Section 3: returns the courses graduate students can enrol in
+  // (graduate-level and 500-level) and saves them to output/gradCourses.csv
+  public static Iterable<FindGradCourses.Row> getGradCourses() throws SQLException {
+    CMS.addSqlChange(ctx -> {
+      SaveGradCourses.execute(ctx);
+    });
+    CMS.commit();
+
+    return FindGradCourses.fetch();
   }
 }
